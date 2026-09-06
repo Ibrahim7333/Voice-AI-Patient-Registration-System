@@ -32,14 +32,14 @@ A production-ready Voice AI Intake System built with **Node.js, Express, MongoDB
 
 ## How to Test the System
 
-You can test the Voice AI Patient Registration System using any of the three methods below.
+You can test the Voice AI Patient Registration System using the steps below.
 
 1. Dial the provisioned Vapi phone number: **`+1 (563) 279-1205`**
-2. **Test Scenario A — New Patient Intake:**
+2a. **Test Scenario A — New Patient Intake:**
    * Provide a new phone number when prompted.
    * Complete the voice intake (Name, Date of Birth, Address, Sex).
    * Confirm details when prompted to trigger the `createPatient` API call and persist the record to MongoDB.
-3. **Test Scenario B — Profile Lookup & Partial Update:**
+2b. **Test Scenario B — Profile Lookup & Partial Update:**
    * Call back using the same phone number or state the previously registered number.
    * The assistant executes `getPatientByPhone`, detects the active record, and confirms your profile.
    * Request an update to a single field (e.g., *"Change my last name to Smith"*).
