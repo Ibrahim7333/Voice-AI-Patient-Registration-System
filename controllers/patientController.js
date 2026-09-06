@@ -34,12 +34,40 @@ exports.getPatientById = async (req, res) => {
 };
 
 // POST /patients[cite: 1]
+// POST /patients
 exports.createPatient = async (req, res) => {
   try {
+    const { phone_number } = req.body;
+
+    if (phone_number) {
+      // Clean phone number to compare digits reliably
+      const cleanedPhone = phone_number.replace(/\D/g, '');
+
+      // Check if an active patient already exists with this phone number
+      const existingPatient = await Patient.findOne({
+        deleted_at: null,
+        $or: [
+          { phone_number: phone_number },
+          { phone_number: cleanedPhone },
+          { phone_number: new RegExp(cleanedPhone + '$') }
+        ]
+      });
+
+      if (existingPatient) {
+        return sendResponse(
+          res,
+          409,
+          null,
+          'A patient with this phone number already exists.'
+        );
+      }
+    }
+
     const newPatient = new Patient(req.body);
     const saved = await newPatient.save();
-    sendResponse(res, 201, saved);
+    sendResponse(res, 201, saved, 'Patient created successfully');
   } catch (err) {
+    console.error('Create Patient Error:', err.message);
     sendResponse(res, 400, null, err.message);
   }
 };
