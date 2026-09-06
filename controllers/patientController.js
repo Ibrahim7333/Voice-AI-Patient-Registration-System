@@ -73,3 +73,24 @@ exports.deletePatient = async (req, res) => {
     sendResponse(res, 500, null, err.message);
   }
 };
+
+
+exports.getPatientByPhone = async (req, res) => {
+  try {
+    const cleanedPhone = req.params.phone.replace(/\D/g, '');
+
+    const patient = await Patient.findOne({
+      deleted_at: null,
+      $or: [
+        { phone_number: req.params.phone },
+        { phone_number: cleanedPhone },
+        { phone_number: new RegExp(cleanedPhone + '$') }
+      ]
+    });
+
+    if (!patient) return sendResponse(res, 404, null, 'Patient not found');
+    sendResponse(res, 200, patient, 'Patient retrieved successfully');
+  } catch (err) {
+    sendResponse(res, 500, null, err.message);
+  }
+};

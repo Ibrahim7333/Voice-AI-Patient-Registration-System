@@ -5,12 +5,14 @@ const {
   getPatientById,
   createPatient,
   updatePatient,
-  deletePatient
+  deletePatient,
+  getPatientByPhone
 } = require('../controllers/patientController');
 
 router.get('/', getPatients);
 router.get('/:id', getPatientById);
 router.post('/', createPatient);
+router.get('/phone/:phone', getPatientByPhone);
 router.put('/:id', updatePatient);
 router.delete('/:id', deletePatient);
 
