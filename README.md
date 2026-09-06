@@ -57,8 +57,7 @@ A production-ready Voice AI Intake System built with **Node.js, Express, MongoDB
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/your-username/voice-ai-patient-registration.git](https://github.com/your-username/voice-ai-patient-registration.git)
-   cd voice-ai-patient-registration
+   git clone https://github.com/Ibrahim7333/Voice-AI-Patient-Registration-System.git
 
 2. **Install Dependencies:**
    ```bash
