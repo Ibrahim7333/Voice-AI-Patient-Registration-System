@@ -7,7 +7,6 @@ const app = express();
 // Global Middleware
 app.use(express.json());
 
-app.use(express.json());
 app.use(morgan('dev'));
 
 // Base Health Check Route
@@ -20,6 +19,6 @@ app.get('/health', (req, res) => {
 });
 
 // Mount Resource Routes
-app.use('/patients', patientRoutes);
+app.use('/api/patients', patientRoutes);
 
 module.exports = app;
