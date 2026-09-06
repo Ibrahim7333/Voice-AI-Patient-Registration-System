@@ -25,7 +25,7 @@ exports.getPatients = async (req, res) => {
 // GET /patients/:id[cite: 1]
 exports.getPatientById = async (req, res) => {
   try {
-    const patient = await Patient.findOne({ patient_id: req.params.id, deleted_at: null });
+    const patient = await Patient.findOne({ _id: req.params.id, deleted_at: null });
     if (!patient) return sendResponse(res, 404, null, 'Patient not found');
     sendResponse(res, 200, patient);
   } catch (err) {
@@ -71,7 +71,7 @@ exports.updatePatient = async (req, res) => {
 exports.deletePatient = async (req, res) => {
   try {
     const softDeleted = await Patient.findOneAndUpdate(
-      { patient_id: req.params.id, deleted_at: null },
+      { _id: req.params.id, deleted_at: null },
       { deleted_at: new Date() },
       { new: true }
     );
