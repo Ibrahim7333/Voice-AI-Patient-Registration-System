@@ -65,8 +65,8 @@ A production-ready Voice AI Intake System built with **Node.js, Express, MongoDB
 
 3. **Configure environment variables:**
    Create a .env file in the root directory with the following variables:
-   * PORT=3000
-   * MONGODB_URI=mongodb+srv://ibrahimabdulruhman_db_user:Ju1RSzyBUFwRJktI@voice-ai-proj-cluster.prakjeb.mongodb.net/production
+   * PORT
+   * MONGODB_URI
 
 4. **Run:**
    ```bash
