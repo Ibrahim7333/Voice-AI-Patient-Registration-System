@@ -54,7 +54,7 @@ exports.updatePatient = async (req, res) => {
     delete updateFields.deleted_at;
 
     const updated = await Patient.findOneAndUpdate(
-      { patient_id: req.params.id, deleted_at: null },
+      { _id: req.params.id, deleted_at: null },
       { $set: updateFields },
       { returnDocument: 'after' } // Omit runValidators: true for partial updates
     );
