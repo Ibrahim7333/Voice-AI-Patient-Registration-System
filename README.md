@@ -34,7 +34,10 @@ A production-ready Voice AI Intake System built with **Node.js, Express, MongoDB
 
 You can test the Voice AI Patient Registration System using the steps below.
 
-1. Dial the provisioned Vapi phone number: **`+1 (563) 279-1205`**
+0. **Wake Up the Server (Pre-flight Step):**
+   * **Action:** Open `https://voice-ai-patient-registration-system.onrender.com/health` in your browser before calling.
+   * **Why:** The backend is deployed on Render's free tier, which spins down instance compute after periods of inactivity. While voice agent's system prompt is explicitly engineered to execute an initial `serverHealthCheck` background ping during call initialization, this manual check prevents any unforseen problems.
+1. **Dial:** Call the provisioned Vapi phone number: **`+1 (563) 279-1205`**
 2. **New Patient Intake:**
    * Provide a new phone number when prompted.
    * Complete the voice intake (Name, Date of Birth, Address, Sex).
