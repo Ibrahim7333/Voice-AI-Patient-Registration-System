@@ -45,18 +45,33 @@ exports.createPatient = async (req, res) => {
 };
 
 // PUT /patients/:id
+// PUT /patients/:id
 exports.updatePatient = async (req, res) => {
   try {
-    // Sanitize body to remove immutable keys sent by Vapi
-    const updateFields = { ...req.body };
-    delete updateFields.patient_id;
-    delete updateFields._id;
-    delete updateFields.deleted_at;
+    const updateFields = {};
+
+    // Only include fields that contain non-empty, valid values
+    Object.keys(req.body).forEach((key) => {
+      const val = req.body[key];
+      if (
+        val !== null &&
+        val !== undefined &&
+        val !== '' &&
+        !['patient_id', '_id', 'deleted_at'].includes(key)
+      ) {
+        updateFields[key] = val;
+      }
+    });
+
+    // If no valid fields are provided for update, return early
+    if (Object.keys(updateFields).length === 0) {
+      return sendResponse(res, 400, null, 'No valid fields provided to update');
+    }
 
     const updated = await Patient.findOneAndUpdate(
       { patient_id: req.params.id, deleted_at: null },
       { $set: updateFields },
-      { returnDocument: 'after' } // Omit runValidators: true for partial updates
+      { returnDocument: 'after' }
     );
 
     if (!updated) return sendResponse(res, 404, null, 'Patient not found');
