@@ -25,7 +25,7 @@ A production-ready Voice AI Intake System built with **Node.js, Express, MongoDB
 * **Voice Engine:** Vapi AI (System Prompt, Dynamic Tool Calling)
 * **Backend Framework:** Node.js / Express.js
 * **Database:** MongoDB Atlas (Mongoose ORM)
-* **Hosting:** Render Cloud Platform
+* **Backend Hosting:** Render Cloud Platform
 * **API Testing:** Postman
 
 ---
@@ -45,7 +45,12 @@ A production-ready Voice AI Intake System built with **Node.js, Express, MongoDB
   * **Description:** Performs a partial update on an existing patient record by `patient_id`.
 * `GET /api/patients/:id`
   * **Description:** Fetch single patient details by `patient_id`.
-
+* `GET /api/patients`
+  * **Description:** Fetch all patients.`.
+* `GET /api/patients/phone/:phone`
+  * **Description:** Fetch single patient details by `phone_number`.
+* `DELETE /api/patients/:id`
+  * **Description:** Soft-delete a single patient record using `patient_id`.
 ---
 
 ## Local Setup Instructions
@@ -54,3 +59,11 @@ A production-ready Voice AI Intake System built with **Node.js, Express, MongoDB
    ```bash
    git clone [https://github.com/your-username/voice-ai-patient-registration.git](https://github.com/your-username/voice-ai-patient-registration.git)
    cd voice-ai-patient-registration
+
+2. **Install Dependencies:**
+   ```bash
+   npm install
+
+3. **Run:**
+   ```bash
+   npm run dev
