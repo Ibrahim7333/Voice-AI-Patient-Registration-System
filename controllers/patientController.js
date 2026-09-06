@@ -44,17 +44,25 @@ exports.createPatient = async (req, res) => {
   }
 };
 
-// PUT /patients/:id[cite: 1]
+// PUT /patients/:id
 exports.updatePatient = async (req, res) => {
   try {
+    // Sanitize body to remove immutable keys sent by Vapi
+    const updateFields = { ...req.body };
+    delete updateFields.patient_id;
+    delete updateFields._id;
+    delete updateFields.deleted_at;
+
     const updated = await Patient.findOneAndUpdate(
       { patient_id: req.params.id, deleted_at: null },
-      req.body,
-      { new: true, runValidators: true }
+      { $set: updateFields },
+      { returnDocument: 'after' } // Omit runValidators: true for partial updates
     );
+
     if (!updated) return sendResponse(res, 404, null, 'Patient not found');
-    sendResponse(res, 200, updated);
+    sendResponse(res, 200, updated, 'Patient updated successfully');
   } catch (err) {
+    console.error('Update Patient Error:', err.message);
     sendResponse(res, 400, null, err.message);
   }
 };
